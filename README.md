@@ -1,4 +1,5 @@
 # Azure Automation DSC
 
 Resources:
-* [Azure Automation Arc](https://azure.microsoft.com/en-us/services/azure-arc/)
+* [Azure Automation DSC overview](https://docs.microsoft.com/en-us/azure/automation/automation-dsc-overview/)
+* [Azure Automation DSC getting started](https://docs.microsoft.com/en-us/azure/automation/automation-dsc-getting-started/)
