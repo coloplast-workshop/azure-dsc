@@ -1,6 +1,6 @@
-#requires -Version 4.0
+﻿#requires -Version 4.0
 
-configuration Install_IIS
+configuration Uninstall_IIS
 {
   [CmdletBinding()]
   param (
@@ -12,9 +12,8 @@ configuration Install_IIS
   {
     WindowsFeature IIS
     {
-      Ensure               = 'Present'
-      Name                 = 'Web-Server'
-      IncludeAllSubFeature = $true
+      Ensure = 'Absent'
+      Name   = 'Web-Server'
     }
   }
 }

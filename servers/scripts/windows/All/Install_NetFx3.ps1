@@ -1,20 +1,18 @@
 #requires -Version 4.0
 
-configuration WinConfigAll
+configuration Install_NetFx3
 {
-  Node IsNetFx3Installed
+  [CmdletBinding()]
+  param (
+    [Parameter()]
+    [string]$ComputerName = 'localhost'
+  )
+  Import-DscResource -ModuleName 'PSDesiredStateConfiguration'
+  Node $ComputerName
   {
     WindowsFeature NetFx3
     {
       Ensure               = 'Present'
-      Name                 = 'NetFx3'
-    }
-  }
-  Node IsNetFx3NotInstalled
-  {
-    WindowsFeature NetFx3
-    {
-      Ensure               = 'Absent'
       Name                 = 'NetFx3'
     }
   }

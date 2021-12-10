@@ -1,6 +1,6 @@
-#requires -Version 4.0
+﻿#requires -Version 4.0
 
-configuration Install_IIS
+configuration Uninstall_NetFx3
 {
   [CmdletBinding()]
   param (
@@ -10,11 +10,10 @@ configuration Install_IIS
   Import-DscResource -ModuleName 'PSDesiredStateConfiguration'
   Node $ComputerName
   {
-    WindowsFeature IIS
+    WindowsFeature NetFx3
     {
-      Ensure               = 'Present'
-      Name                 = 'Web-Server'
-      IncludeAllSubFeature = $true
+      Ensure               = 'Absent'
+      Name                 = 'NetFx3'
     }
   }
 }
