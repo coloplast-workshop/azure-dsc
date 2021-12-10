@@ -1,14 +1,9 @@
 #requires -Version 4.0
 
-configuration Install_IIS
+configuration WindowsWebServer_Install
 {
-  [CmdletBinding()]
-  param (
-    [Parameter()]
-    [string]$ComputerName = 'localhost'
-  )
   Import-DscResource -ModuleName 'PSDesiredStateConfiguration'
-  Node $ComputerName
+  Node localhost
   {
     WindowsFeature IIS
     {

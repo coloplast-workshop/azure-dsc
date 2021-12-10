@@ -1,14 +1,9 @@
 ﻿#requires -Version 4.0
 
-configuration Add_NewTempDirectory
+configuration Windows_AddNewTempDirectory
 {
-  [CmdletBinding()]
-  param (
-    [Parameter()]
-    [string]$ComputerName = 'localhost'
-  )
   Import-DscResource -ModuleName 'PSDesiredStateConfiguration'
-  Node $ComputerName
+  Node localhost
   {
     File NewDirectory
     {

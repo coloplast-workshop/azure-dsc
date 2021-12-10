@@ -1,14 +1,9 @@
 #requires -Version 4.0
 
-configuration Install_NetFx3
+configuration Windows_InstallNetFx3
 {
-  [CmdletBinding()]
-  param (
-    [Parameter()]
-    [string]$ComputerName = 'localhost'
-  )
   Import-DscResource -ModuleName 'PSDesiredStateConfiguration'
-  Node $ComputerName
+  Node localhost
   {
     WindowsFeature NetFx3
     {

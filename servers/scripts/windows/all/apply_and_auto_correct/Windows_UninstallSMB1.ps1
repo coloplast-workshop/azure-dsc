@@ -1,20 +1,15 @@
 ﻿#requires -Version 4.0
 
-configuration Install_TelnetClient
+configuration Windows_UninstallSMB1
 {
-  [CmdletBinding()]
-  param (
-    [Parameter()]
-    [string]$ComputerName = 'localhost'
-  )
   Import-DscResource -ModuleName 'PSDesiredStateConfiguration'
-  Node $ComputerName
+  Node localhost
   {
     $features = @()
     $features += [pscustomobject]@{
-      ConfigName = 'TelnetClient'
-      Name       = 'Telnet-Client'
-      Ensure     = 'Present'
+      ConfigName = 'FSSMB1'
+      Name       = 'FS-SMB1'
+      Ensure     = 'Absent'
     }
     foreach ($feature in $features) 
     {
