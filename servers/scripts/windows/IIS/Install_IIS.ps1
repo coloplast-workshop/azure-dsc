@@ -1,6 +1,6 @@
 #requires -Version 4.0
 
-configuration WinConfig_IIS
+configuration WinConfigIIS
 {
   Node IsIISInstalled
   {
