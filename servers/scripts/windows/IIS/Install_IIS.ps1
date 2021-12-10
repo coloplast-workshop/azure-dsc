@@ -1,8 +1,8 @@
 #requires -Version 4.0
 
-configuration WinConfig_WebServer
+configuration WinConfig_IIS
 {
-  Node IsIisInstalled
+  Node IsIISInstalled
   {
     WindowsFeature IIS
     {
@@ -11,7 +11,7 @@ configuration WinConfig_WebServer
       IncludeAllSubFeature = $true
     }
   }
-  Node IsIisNotInstalled
+  Node IsIISNotInstalled
   {
     WindowsFeature IIS
     {

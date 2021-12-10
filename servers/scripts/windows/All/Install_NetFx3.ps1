@@ -1,6 +1,6 @@
 #requires -Version 4.0
 
-configuration WinConfig
+configuration WinConfig_All
 {
   Node IsNetFx3Installed
   {
