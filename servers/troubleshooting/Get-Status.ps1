@@ -1,0 +1,2 @@
+$status = Get-DscConfigurationStatus
+$status
