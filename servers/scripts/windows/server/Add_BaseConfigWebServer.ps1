@@ -1,9 +1,8 @@
-﻿#requires -Version 4.0
-
-configuration WindowsWebServerConfig
+﻿#requires -Version 4.0 -Modules PSDesiredStateConfiguration
+Configuration BaseConfigWebServer
 {
   Import-DscResource -ModuleName 'PSDesiredStateConfiguration'
-  Node localhost
+  Node 'localhost'
   {
     WindowsFeature 'NETFrameworkCore' {
       Name   = 'NET-Framework-Core'

@@ -1,16 +1,15 @@
-﻿#requires -Version 4.0
-
-configuration WindowsServerConfig
+﻿#requires -Version 4.0 -Modules PSDesiredStateConfiguration
+Configuration BaseConfigServer
 {
   Import-DscResource -ModuleName 'PSDesiredStateConfiguration'
-  Node localhost
+  Node 'localhost'
   {
     WindowsFeature 'SMB1'
     {
       Ensure               = 'Absent'
       Name                 = 'FS-SMB1'
     }
-    WindowsFeature 'Telnet-Client'
+    WindowsFeature 'TelnetClient'
     {
       Name   = 'Telnet-Client'
       Ensure = 'Present'

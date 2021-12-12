@@ -1,4 +1,4 @@
-﻿#requires -Version 4.0 
+﻿#requires -Version 4.0 -Modules PSDesiredStateConfiguration
 Configuration AddTelnetClient
 {
   Import-DscResource -ModuleName PSDesiredStateConfiguration
