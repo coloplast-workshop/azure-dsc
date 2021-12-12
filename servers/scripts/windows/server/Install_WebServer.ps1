@@ -1,5 +1,5 @@
 ﻿#requires -Version 4.0 -Modules PSDesiredStateConfiguration
-configuration InstallWebServer
+Configuration InstallWebServer
 {
   Import-DscResource -ModuleName PSDesiredStateConfiguration
   Node 'localhost'
