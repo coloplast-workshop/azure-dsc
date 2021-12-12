@@ -6,7 +6,7 @@ Configuration AddTelnetClient
   {
     WindowsFeature TelnetClient
     {
-      Name = 'TelnetClient'
+      Name = 'Telnet-Client'
       Ensure = 'Present'
       IncludeAllSubFeature = $true
     }
