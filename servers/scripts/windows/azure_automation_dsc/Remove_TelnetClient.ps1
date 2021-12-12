@@ -1,5 +1,5 @@
 ﻿#requires -Version 4.0 -Modules PSDesiredStateConfiguration
-Configuration AddTelnetClient
+Configuration RemoveTelnetClient
 {
   Import-DscResource -ModuleName PSDesiredStateConfiguration
   Node 'localhost'
@@ -7,7 +7,7 @@ Configuration AddTelnetClient
     WindowsFeature TelnetClient
     {
       Name = 'Telnet-Client'
-      Ensure = 'Present'
+      Ensure = 'Absent'
     }
   }
 }
