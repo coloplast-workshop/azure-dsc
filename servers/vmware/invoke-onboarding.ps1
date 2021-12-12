@@ -1,26 +1,58 @@
-﻿$resourceGroup = 'azure-dsc-rg'
-$automationAccount = 'automation-account'
-$outputFolderString = $env:SystemDrive + '\DSC'
+﻿[DscLocalConfigurationManager()]
+Configuration AzureDscLcmConfig
+{ 
+  param 
+  ( 
+    [Parameter(Mandatory)]
+    [String[]]$ComputerName,  
+    [Parameter(Mandatory)]
+    [String]$AzureDscServerUrl,
+    [Parameter(Mandatory)]
+    [String]$AzureDscRegistrationKey,
+    [Parameter(Mandatory)]
+    [String]$AzureDSCNodeConfigurationName
+  )
+  Node $ComputerName
+  {
+    $ConfigurationNames = @($AzureDSCNodeConfigurationName)
+    Settings 
+    { 
+      RefreshFrequencyMins = 30
+      ConfigurationModeFrequencyMins = 15
+      RefreshMode = 'Pull'
+      ConfigurationMode = 'ApplyAndMonitor' 
+      AllowModuleOverwrite = $False
+      RebootNodeIfNeeded = $False 
+      ActionAfterReboot = 'ContinueConfiguration'            
+    }
+    ConfigurationRepositoryWeb AzureAutomationDSC 
+    { 
+      ServerUrl = $AzureDscServerUrl
+      RegistrationKey = $AzureDscRegistrationKey
+      ConfigurationNames = $ConfigurationNames
+    }
+    ResourceRepositoryWeb AzureAutomationDSC
+    {
+      ServerUrl = $AzureDscServerUrl
+      RegistrationKey = $AzureDscRegistrationKey
+    }
+    ReportServerWeb AzureAutomationDSC 
+    { 
+      ServerUrl = $AzureDscServerUrl 
+      RegistrationKey = $AzureDscRegistrationKey
+    }
+  } 
+}
+
 $params = @{
-  ResourceGroupName     = $resourceGroup
-  AutomationAccountName = $automationAccount
-  ComputerName          = @('localhost')
-  OutputFolder          = $outputFolderString
+  ComputerName                  = @($env:COMPUTERNAME)
+  AzureDscServerUrl             = '_your_url_here'
+  AzureDscRegistrationKey       = '_your_key_here_'
+  AzureDSCNodeConfigurationName = "$env:COMPUTERNAME.localhost"
 }
+$windirTemp = $env:windir + '\Temp'
 
-if ($null -ne (Get-InstalledModule -Name 'AzureRM' -ErrorAction SilentlyContinue))
-{
-  Uninstall-Module -Name 'AzureRM' -AllVersions -WarningAction Ignore
-}
-if (-not (Get-InstalledModule -Name 'Az' -ErrorAction SilentlyContinue))
-{
-  Install-Module -Name 'Az' -Force -AllowClobber
-  Uninstall-AzureRm -WarningAction Ignore
-}
-Connect-AzAccount
-Get-AzAutomationDscOnboardingMetaconfig @params -Force
-Start-Service -Name 'WinRM' -ErrorAction SilentlyContinue
-Set-DscLocalConfigurationManager -Path ('{0}\\MetaConfigs' -f $outputFolderString)
-
-# Validating node enrollment
-#Get-DscLocalConfigurationManager
+Push-Location -Path $windirTemp
+AzureDscLcmConfig @params
+Set-DscLocalConfigurationManager -Path "$windirTemp\AzureDscLcmConfig" -Verbose
+Pop-Location
